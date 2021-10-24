@@ -16,15 +16,14 @@
         <slf4j.version>1.7.32</slf4j.version>
         <slf4j-jdk14.version>1.7.32</slf4j-jdk14.version>
         <mariadb-java-client.version>2.7.4</mariadb-java-client.version>
+        <projectlombok.version>1.18.22</projectlombok.version>
     </properties>
 
-    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -41,7 +40,12 @@
                 <artifactId>mariadb-java-client</artifactId>
                 <version>${mariadb-java-client.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${projectlombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
-    </dependencyManagement>
 
 </project>
