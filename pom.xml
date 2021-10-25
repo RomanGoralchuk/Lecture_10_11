@@ -17,6 +17,8 @@
         <slf4j-jdk14.version>1.7.32</slf4j-jdk14.version>
         <mariadb-java-client.version>2.7.4</mariadb-java-client.version>
         <projectlombok.version>1.18.22</projectlombok.version>
+        <commons-dbcp2.version>2.9.0</commons-dbcp2.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     </properties>
 
         <dependencies>
@@ -46,6 +48,21 @@
                 <version>${projectlombok.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>${commons-dbcp2.version}</version>
+            </dependency>
         </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

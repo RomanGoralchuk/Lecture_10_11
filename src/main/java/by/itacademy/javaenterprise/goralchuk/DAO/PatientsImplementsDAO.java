@@ -2,6 +2,8 @@ package by.itacademy.javaenterprise.goralchuk.DAO;
 
 import by.itacademy.javaenterprise.goralchuk.blogic.Patients;
 import by.itacademy.javaenterprise.goralchuk.utils.ConnectionToDataBase;
+import by.itacademy.javaenterprise.goralchuk.utils.DHCPApacheCommons;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,7 +157,13 @@ public class PatientsImplementsDAO implements PatientsDAO {
     @Override
     public List<Patients> getAll() {
         List<Patients> patients = new ArrayList<>();
-        Connection connection = ConnectionToDataBase.getNewConnection();
+        BasicDataSource dataSource = DHCPApacheCommons.getDataSource();
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {

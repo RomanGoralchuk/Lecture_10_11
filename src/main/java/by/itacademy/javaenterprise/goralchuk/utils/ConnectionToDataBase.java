@@ -1,7 +1,9 @@
 package by.itacademy.javaenterprise.goralchuk.utils;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,14 +18,9 @@ public class ConnectionToDataBase {
         String url = "jdbc:mariadb://127.0.0.1:10000/hospital";
         String userName = "root";
         String userPass = "root";
+        Connection connection = null;
         try {
-            Connection connection = DriverManager.getConnection(url, userName, userPass);
-            if (connection != null) {
-                logger.info("Successful connection to DB");
-                return connection;
-            } else {
-                logger.info("Failed connection to DB");
-            }
+            connection = DriverManager.getConnection(url, userName, userPass);
         } catch (SQLInvalidAuthorizationSpecException e) {
             logger.error("User data is not correct", e);
         } catch (SQLSyntaxErrorException e) {
@@ -31,7 +28,7 @@ public class ConnectionToDataBase {
         } catch (SQLException e) {
             logger.error("Found problem" + e);
         }
-        return null;
+        return connection;
     }
 
     public static Connection getNewConnectionViaFile() {
@@ -39,15 +36,9 @@ public class ConnectionToDataBase {
         String url = resource.getString("url");
         String user = resource.getString("user");
         String pass = resource.getString("password");
-
+        Connection connection = null;
         try {
-            Connection connection = DriverManager.getConnection(url, user, pass);
-            if (connection != null) {
-                logger.info("Successful connection to DB");
-                return connection;
-            } else {
-                logger.info("Failed connection to DB");
-            }
+            connection = DriverManager.getConnection(url, user, pass);
         } catch (SQLInvalidAuthorizationSpecException e) {
             logger.error("User data is not correct", e);
         } catch (SQLSyntaxErrorException e) {
@@ -55,6 +46,9 @@ public class ConnectionToDataBase {
         } catch (SQLException e) {
             logger.error("Found problem" + e);
         }
-        return null;
+        return connection;
     }
+
+
+
 }

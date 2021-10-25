@@ -11,7 +11,7 @@ https://mkyong.com/tutorials/jdbc-tutorials/
 
 Home task lecture 11: home work 10 plus
 1. Add DAO tier +
-2. Add JDBC connection pool
+2. Add JDBC connection pool +
 3. Insert with JDBC transaction API +
 
 @StepanDudkin Apache
