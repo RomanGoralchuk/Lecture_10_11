@@ -2,11 +2,6 @@ package by.itacademy.javaenterprise.goralchuk;
 
 import by.itacademy.javaenterprise.goralchuk.DAO.PatientsImplementsDAO;
 import by.itacademy.javaenterprise.goralchuk.blogic.Patients;
-import by.itacademy.javaenterprise.goralchuk.utils.ConnectionToDataBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.sql.*;
 
 public class MainTest {
 

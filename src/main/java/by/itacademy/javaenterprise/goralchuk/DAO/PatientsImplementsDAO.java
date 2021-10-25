@@ -40,6 +40,7 @@ public class PatientsImplementsDAO implements PatientsDAO {
     public Patients create(Patients patients) {
         Connection connection = ConnectionToDataBase.getNewConnectionViaFile();
         PreparedStatement statement = null;
+
         if (patients != null) {
             String name = patients.getName();
             String surname = patients.getSurname();
@@ -48,16 +49,25 @@ public class PatientsImplementsDAO implements PatientsDAO {
 
             try {
                 if (connection != null) {
+                    connection.setAutoCommit(false);
                     statement = connection.prepareStatement(ADD_PATIENT);
                     statement.setString(1, name);
                     statement.setString(2, surname);
                     statement.setString(3, sex);
                     statement.setDate(4, (java.sql.Date) birthday);
-                    statement.executeUpdate();
-                    logger.info("Patient added to the table successfully!");
+                    Savepoint savepointOne = connection.setSavepoint("SavepointOne");
+
+                    try {
+                        statement.executeUpdate();
+                        connection.commit();
+                        logger.info("Patient added to the table successfully!");
+                    } catch (SQLException e) {
+                        logger.error(e.toString());
+                        connection.rollback(savepointOne);
+                    }
                 }
-            } catch (SQLException e) {
-                logger.error(e.toString());
+            } catch (SQLException ex) {
+                logger.error(ex.toString());
             } finally {
                 try {
                     if (statement != null) {
@@ -94,6 +104,7 @@ public class PatientsImplementsDAO implements PatientsDAO {
             if (connection != null) {
                 statement = connection.prepareStatement(sql);
                 resultSet = statement.executeQuery();
+                connection.setAutoCommit(false);
 
                 while (resultSet.next()) {
                     int id = resultSet.getInt("patient_ID");
@@ -110,12 +121,19 @@ public class PatientsImplementsDAO implements PatientsDAO {
                     patient.setSurname(surname);
                     patient.setSex(sex);
                     patient.setBirthday(birthday);
+                    Savepoint savepointOne = connection.setSavepoint("SavepointOne");
 
-                    patients.add(patient);
+                    try {
+                        patients.add(patient);
+                        connection.commit();
+                    } catch (SQLException e) {
+                        logger.error(e.toString());
+                        connection.rollback(savepointOne);
+                    }
                 }
             }
-        } catch (SQLException e) {
-            logger.error(e.toString());
+        } catch (SQLException ex) {
+            logger.error(ex.toString());
         } finally {
             try {
                 if (resultSet != null) {
