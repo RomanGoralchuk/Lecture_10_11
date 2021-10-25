@@ -9,9 +9,8 @@ For 10
 Add ‘where’ with custom params for step #4 +
 https://mkyong.com/tutorials/jdbc-tutorials/
 
-Home task lecture 11:
-0. home work 10 plus
-1. Add DAO tier
+Home task lecture 11: home work 10 plus
+1. Add DAO tier +
 2. Add JDBC connection pool
 3. Insert with JDBC transaction API
 

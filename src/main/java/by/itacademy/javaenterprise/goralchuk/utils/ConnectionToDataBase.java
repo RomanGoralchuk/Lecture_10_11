@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class ConnectionToDataBase {
     private static final Logger logger = LoggerFactory.getLogger(ConnectionToDataBase.class);
 
-    public Connection getNewConnection() {
+    public static Connection getNewConnection() {
         String url = "jdbc:mariadb://127.0.0.1:10000/hospital";
         String userName = "root";
         String userPass = "root";
@@ -34,7 +34,7 @@ public class ConnectionToDataBase {
         return null;
     }
 
-    public Connection getNewConnectionViaFile() {
+    public static Connection getNewConnectionViaFile() {
         ResourceBundle resource = ResourceBundle.getBundle("database");
         String url = resource.getString("url");
         String user = resource.getString("user");
